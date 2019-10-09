@@ -337,7 +337,7 @@ export default class RESTResource {
   }
 
   stateKey() {
-    return `${this.dataKey ? `${this.dataKey}#` : ''}${this.crudName}`;
+    return getStateKey(this.module, this.name, this.dataKey);
   }
 
   // check if the given manifest has a path with

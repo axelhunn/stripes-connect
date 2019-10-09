@@ -41,6 +41,7 @@ const wrap = (Wrapped, module, epics, logger, options = {}) => {
       resource = _cachedResources[key];
     } else {
       resource = new types[query.type || defaultType](name, query, module, logger, query.dataKey || dataKey);
+      _cachedResources[key] = resource;
       if (query.type === 'okapi') {
         epics.add(...mutationEpics(resource), refreshEpic(resource));
       }
