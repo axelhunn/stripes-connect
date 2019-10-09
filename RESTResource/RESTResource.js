@@ -199,13 +199,22 @@ export function substitute(original, props, state, module, logger, dataKey) {
   return result;
 }
 
+function getCrudName(module, name) {
+  return module ? `${_.snakeCase(module)}_${_.snakeCase(name)}` : _.snakeCase(name);
+}
+
+export function getStateKey(module, name, dataKey) {
+  const crudName = getCrudName(module, name);
+  return `${dataKey ? `${dataKey}#` : ''}${crudName}`;
+}
+
 export default class RESTResource {
   constructor(name, query = {}, module = null, logger, dataKey, defaults = defaultDefaults) {
     this.name = name;
     this.module = module;
     this.logger = logger;
     this.dataKey = dataKey;
-    this.crudName = module ? `${_.snakeCase(module)}_${_.snakeCase(name)}` : _.snakeCase(name);
+    this.crudName = getCrudName(module, name);
     this.optionsTemplate = _.merge({}, defaults, query);
     this.optionsFromState = query.optionsFromState || (() => undefined);
     this.throwErrors = query.throwErrors === undefined ? true : query.throwErrors;

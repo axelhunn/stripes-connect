@@ -1,1 +1,1 @@
-export { default } from './RESTResource';
+export { default, getStateKey } from './RESTResource';
