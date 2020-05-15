@@ -498,12 +498,14 @@ describe('connect()', () => {
     inst.find(Child2).props().resources.should.have.property('childResource2');
     inst.find(Child2).props().mutator.should.have.property('childResource2');
     inst.find(Child2).props().resources.childResource2.should.equal('child2');
+    inst.find(Child1).props().resources.childResource1.should.equal('child1');
 
     inst.setProps({ showChild: false });
     inst.setProps({ showChild: true });
 
     inst.find(Child2).props().resources.should.have.property('childResource2');
     inst.find(Child2).props().mutator.should.have.property('childResource2');
+    inst.find(Child1).props().resources.childResource1.should.equal('child1');
   });
 
   it('should refetch data when props change', (done) => {
